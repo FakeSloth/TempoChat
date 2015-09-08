@@ -1,0 +1,6 @@
+.chat-list {
+  height: 80vh;
+  word-wrap: break-word;
+  overflow-y: auto;
+  overflow-x : hidden;
+}
