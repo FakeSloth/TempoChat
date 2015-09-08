@@ -28,4 +28,5 @@ gulp.task('watch', function() {
   gulp.watch(['app/*.js', 'app/components/*.js'], ['scripts']);
 });
 
-gulp.task('default', ['lint', 'style', 'watch']);
+gulp.task('build', ['scripts', 'watch']);
+gulp.task('default', ['lint', 'style']);

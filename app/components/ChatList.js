@@ -8,7 +8,7 @@ var ChatList = React.createClass({
   
   createMessage: function(text, index) {
     return (
-      <li key={index + text}>{text}</li>
+      <li className="chat-message" key={index + text}>{text}</li>
     );
   },
 
