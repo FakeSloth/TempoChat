@@ -1,6 +1,7 @@
 var React = require('react/addons');
 var ChatList = require('./ChatList');
 var ChatInput = require('./ChatInput');
+var UserList = require('./UserList');
 var Websocket = require('ws');
 
 var App = React.createClass({
@@ -13,9 +14,10 @@ var App = React.createClass({
 
     ws.onmessage = function(e) {
       var data = e.data.split('|');
+      if (data[0] === 'r') return this.setState({username: data[1]});
       if (data[0] === 'j') {
-        this.state.username = data[1];
-        return;
+        console.log(data);
+        return this.setState({users: JSON.parse(data[1])});
       }
       var messages = this.state.messages.concat([e.data]);
       this.setState({messages: messages});
@@ -31,7 +33,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       messages: [],
-      username: ''
+      username: '',
+      users: []
     };
   },
 
@@ -49,8 +52,15 @@ var App = React.createClass({
           </form>
         </nav>
         <div className="container">
-          <ChatList messages={this.state.messages} />
-          <ChatInput onInputSubmit={this.onInputSubmit} username={this.state.username} />
+          <div className="row">
+            <div className="col-md-4">
+              <UserList users={this.state.users} />
+            </div>
+            <div className="col-md-8">
+              <ChatList messages={this.state.messages} />
+              <ChatInput onInputSubmit={this.onInputSubmit} username={this.state.username} />
+            </div>
+          </div>
         </div>
       </div>
     );

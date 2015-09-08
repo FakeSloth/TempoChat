@@ -13,3 +13,13 @@
 .navbar {
   border-radius: 0;
 }
+
+.user-list {
+  padding: 0;
+  overflow-y: auto;
+  overflow-x : hidden;
+}
+
+.user-item {
+  list-style: none;
+}
