@@ -1,7 +1,18 @@
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
+var jscs = require('gulp-jscs');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
-gulp.task('default', function() {
+gulp.task('default', ['lint', 'style']);
+
+gulp.task('lint', function() {
+  gulp.src(['*.js', 'app/**/*.js', 'config/*.js', 'test/*.js'])
+    .pipe(jshint({linter: require('jshint-jsx').JSXHINT}))
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('scripts', function() {
   gulp.src('app/client.js')
     .pipe(browserify({
       debug: true,
@@ -9,3 +20,9 @@ gulp.task('default', function() {
     }))
     .pipe(gulp.dest('./public/js/'));
 });
+
+gulp.task('style', function() {
+  gulp.src(['*.js', 'app/controllers/*.js', 'config/*.js', 'test/*.js'])
+    .pipe(jscs());
+});
+

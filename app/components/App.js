@@ -20,7 +20,7 @@ var App = React.createClass({
   },
 
   getInitialState: function() {
-    return { messages: [] };
+    return {messages: []};
   },
 
   onInputSubmit: function(text) {
