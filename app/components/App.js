@@ -10,8 +10,7 @@ var App = React.createClass({
       console.log('connect!');
     };
     ws.onmessage = function(e) {
-      var messages = this.state.messages;
-      messages.push(e.data);
+      var messages = this.state.messages.concat([e.data]);
       this.setState({messages:messages});
     }.bind(this);
     ws.onclose = function() {
