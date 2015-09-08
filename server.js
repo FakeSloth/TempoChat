@@ -15,6 +15,7 @@ require('node-jsx').install();
 
 var config = require('./config');
 var routes = require('./config/routes');
+var sockets = require('./sockets');
 
 /**
  * Create an express application.
@@ -99,18 +100,7 @@ if (app.get('env') === 'production') {
  * Handle websockets.
  */
 
-wss.on('connection', function(ws) {
-  console.log('connect!');
-  ws.on('message', function(message) {
-    wss.broadcast(message);
-  });
-});
-
-wss.broadcast = function broadcast(data) {
-  wss.clients.forEach(function each(client) {
-    client.send(data);
-  });
-};
+sockets(wss);
 
 /**
  * Start express server.
