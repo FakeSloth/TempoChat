@@ -12,10 +12,10 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CreaturePhil/TempoChat.git"
+    "url": "https://github.com/FakeSloth/TempoChat.git"
   },
   "bugs": {
-    "url": "https://github.com/CreaturePhil/TempoChat/issues"
+    "url": "https://github.com/FakeSloth/TempoChat/issues"
   },
   "dependencies": {
     "chalk": "^1.0.0",
