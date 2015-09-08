@@ -4,8 +4,6 @@ var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
-gulp.task('default', ['lint', 'style']);
-
 gulp.task('lint', function() {
   gulp.src(['*.js', 'app/**/*.js', 'config/*.js', 'test/*.js'])
     .pipe(jshint({linter: require('jshint-jsx').JSXHINT}))
@@ -26,3 +24,8 @@ gulp.task('style', function() {
     .pipe(jscs());
 });
 
+gulp.task('watch', function() {
+  gulp.watch(['app/*.js', 'app/components/*.js'], ['scripts']);
+});
+
+gulp.task('default', ['lint', 'style', 'watch']);
