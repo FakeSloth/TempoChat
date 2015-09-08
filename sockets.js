@@ -1,6 +1,9 @@
 module.exports = function(wss) {
   wss.on('connection', function(ws) {
-    console.log('connect!');
+    var number = wss.clients.length;
+    console.log('Guest ' + number + ' has joined!');
+    ws.send('j|Guest ' + number);
+
     ws.on('message', function(message) {
       broadcast(message);
     });

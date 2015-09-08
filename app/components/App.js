@@ -5,34 +5,53 @@ var Websocket = require('ws');
 
 var App = React.createClass({
   componentDidMount: function() {
-    var ws = new Websocket('ws://localhost:3000');
+    var ws = new Websocket("ws://localhost:3000");
+
     ws.onopen = function() {
-      console.log('connect!');
-    };
-    ws.onmessage = function(e) {
-      var messages = this.state.messages.concat([e.data]);
-      this.setState({messages:messages});
+      console.log("Connected!");
     }.bind(this);
+
+    ws.onmessage = function(e) {
+      var data = e.data.split('|');
+      if (data[0] === 'j') {
+        this.state.username = data[1];
+        return;
+      }
+      var messages = this.state.messages.concat([e.data]);
+      this.setState({messages: messages});
+    }.bind(this);
+
     ws.onclose = function() {
-      console.log('close');
+      console.log("Disconnected!");
     };
+
     this.ws = ws;
   },
 
   getInitialState: function() {
-    return {messages: []};
+    return {
+      messages: [],
+      username: ''
+    };
   },
 
   onInputSubmit: function(text) {
-    //this.setState({messages: messages});
-    this.ws.send(text);
+    this.ws.send(this.state.username + ': ' + text);
   },
 
   render: function() {
     return (
       <div>
-        <ChatList messages={this.state.messages} />
-        <ChatInput onInputSubmit={this.onInputSubmit} />
+        <nav className="navbar navbar-dark bg-primary">
+          <a className="navbar-brand" href="#">TempoChat</a>
+          <form className="form-inline navbar-form pull-right">
+            <button className="btn btn-secondary" type="submit">Login</button>
+          </form>
+        </nav>
+        <div className="container">
+          <ChatList messages={this.state.messages} />
+          <ChatInput onInputSubmit={this.onInputSubmit} username={this.state.username} />
+        </div>
       </div>
     );
   }

@@ -5,7 +5,7 @@ var ChatList = React.createClass({
   componentDidUpdate: function() {
     React.findDOMNode(this.refs.messages).scrollTop = React.findDOMNode(this.refs.messages).scrollHeight;
   },
-  
+
   createMessage: function(text, index) {
     return (
       <li className="chat-message" key={index + text}>{text}</li>
